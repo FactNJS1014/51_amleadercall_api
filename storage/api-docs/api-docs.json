@@ -1,0 +1,249 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API_AMLINECALL",
+        "description": "API AMLINECALL",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api",
+            "description": "Local Server"
+        },
+        {
+            "url": "/api"
+        }
+    ],
+    "paths": {
+        "/vwork": {
+            "get": {
+                "tags": [
+                    "DataVWork"
+                ],
+                "summary": "Get work list",
+                "operationId": "2b09ee783f104db2a666b91f3f63deb9",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/vcus": {
+            "get": {
+                "tags": [
+                    "DataVWork"
+                ],
+                "summary": "Get work list",
+                "operationId": "7b41f756a6d78ef548553e1441dac203",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/vcheckmodel": {
+            "get": {
+                "tags": [
+                    "DataVWork"
+                ],
+                "summary": "Get work list",
+                "operationId": "f3bea89f201d583c188278b30b66dca1",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/info/record": {
+            "get": {
+                "tags": [
+                    "Info"
+                ],
+                "summary": "Get info record",
+                "operationId": "fed59fdc8bc5d95f89ca5f211d811627",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/info/record/check": {
+            "get": {
+                "tags": [
+                    "Info"
+                ],
+                "summary": "Get info record",
+                "operationId": "02036f6e1966f416b6b7b9db7eb13f08",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/info-action/record": {
+            "get": {
+                "tags": [
+                    "Action"
+                ],
+                "summary": "Get action record",
+                "operationId": "09ecc9533bfff68ee3bb47a53daad557",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/action/record/check": {
+            "get": {
+                "tags": [
+                    "Action"
+                ],
+                "summary": "Get action record",
+                "operationId": "0a938b1f77ff49a4992d79de683140fa",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/confirm/record": {
+            "get": {
+                "tags": [
+                    "Confirm"
+                ],
+                "summary": "Get confirm record",
+                "operationId": "7c37f86e3992385812c39c874f5ca170",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/info/insert": {
+            "post": {
+                "tags": [
+                    "Info"
+                ],
+                "summary": "Insert info record",
+                "description": "todo : 2026-03-09\n* FN: สำหรับบันทึกข้อมูลลงในตาราง AM_LDR_INFOHREC_TBL",
+                "operationId": "44afd972a457c6f9ec7de189e8be1e03",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/action/insert": {
+            "post": {
+                "tags": [
+                    "Action"
+                ],
+                "summary": "Insert action record",
+                "description": "todo : 2026-03-09\n* FN: สำหรับบันทึกข้อมูลลงในตาราง AM_LDR_ACTIONHREC_TBL",
+                "operationId": "0f6b012791086188b41f1078def9d2f1",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/update/check/{id}": {
+            "put": {
+                "tags": [
+                    "Info"
+                ],
+                "summary": "Insert info record",
+                "operationId": "2be81387142e7514900e6769edb9d0f6",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/info/update": {
+            "put": {
+                "tags": [
+                    "Info"
+                ],
+                "summary": "Update info record",
+                "operationId": "a6138b43c889f34961d468f44e2487c0",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/info/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Info"
+                ],
+                "summary": "Delete info record",
+                "operationId": "727e4adccd895252cd00ef00bd473cac",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/action/update": {
+            "put": {
+                "tags": [
+                    "Action"
+                ],
+                "summary": "Update action record",
+                "operationId": "6f4ac2006ead5693d476b0d4bbdd08c0",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/update/action-check/{id}": {
+            "put": {
+                "tags": [
+                    "Action"
+                ],
+                "summary": "Update action check record",
+                "operationId": "35922649efc414a4fcc5809767033396",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "DataVWork",
+            "description": "DataVWork"
+        },
+        {
+            "name": "Info",
+            "description": "Info"
+        },
+        {
+            "name": "Action",
+            "description": "Action"
+        },
+        {
+            "name": "Confirm",
+            "description": "Confirm"
+        }
+    ]
+}
