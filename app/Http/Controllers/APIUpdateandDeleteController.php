@@ -91,9 +91,18 @@ class APIUpdateandDeleteController extends Controller
                 }
             }
 
-            // If multiple images were uploaded, return them as an array, 
-            // otherwise returning as a single string (or null) to maintain compatibility if possible
-            $payload['image'] = count($uploadedImages) === 1 ? $uploadedImages[0] : (empty($uploadedImages) ? null : $uploadedImages);
+            // กรณีอัพโหลดรูปใหม่ → ใช้ชื่อไฟล์ใหม่
+            // กรณีไม่เปลี่ยนรูป → ใช้ existing_image ที่ส่งมาจาก frontend
+            // กรณีไม่มีรูปเลย → null
+            if (count($uploadedImages) === 1) {
+                $payload['image'] = $uploadedImages[0];
+            } elseif (!empty($uploadedImages)) {
+                $payload['image'] = $uploadedImages;
+            } elseif ($request->filled('existing_image')) {
+                $payload['image'] = $request->input('existing_image');
+            } else {
+                $payload['image'] = null;
+            }
 
             $update_data = [
                 'AMLDRINF_EMPHREC' => $payload['emp_id'],
@@ -214,9 +223,18 @@ class APIUpdateandDeleteController extends Controller
                 }
             }
 
-            // If multiple images were uploaded, return them as an array, 
-            // otherwise returning as a single string (or null) to maintain compatibility if possible
-            $payload['image'] = count($uploadedImages) === 1 ? $uploadedImages[0] : (empty($uploadedImages) ? null : $uploadedImages);
+            // กรณีอัพโหลดรูปใหม่ → ใช้ชื่อไฟล์ใหม่
+            // กรณีไม่เปลี่ยนรูป → ใช้ existing_image ที่ส่งมาจาก frontend
+            // กรณีไม่มีรูปเลย → null
+            if (count($uploadedImages) === 1) {
+                $payload['image'] = $uploadedImages[0];
+            } elseif (!empty($uploadedImages)) {
+                $payload['image'] = $uploadedImages;
+            } elseif ($request->filled('existing_image')) {
+                $payload['image'] = $request->input('existing_image');
+            } else {
+                $payload['image'] = null;
+            }
 
 
 

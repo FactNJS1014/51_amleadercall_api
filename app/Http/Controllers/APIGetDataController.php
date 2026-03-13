@@ -68,6 +68,26 @@ class APIGetDataController extends Controller
         return response()->json($data);
     }
 
+    public function DataVWorkByCustomer($customer)
+    {
+        $data = DB::table('VWORLIST')
+            ->select('WON', 'BGCD')
+            ->where('BGCD', trim($customer))
+            ->get();
+
+        return response()->json($data);
+    }
+
+    public function DataCheckModelByWon($won)
+    {
+        $data = DB::table('VWORLIST')
+            ->select('WON', 'MDLCD', 'MDLNM', 'WONQT')
+            ->where('WON', trim($won))
+            ->first();
+
+        return response()->json($data);
+    }
+
     #[OA\Get(
         path: "/info/record",
         tags: ["Info"],

@@ -28,6 +28,8 @@ Route::get('/confirm/record', [APIGetDataController::class, 'DataConfirmRecord']
 Route::get('/vcus', [APIGetDataController::class, 'DataCustomer']);
 
 Route::get('/vcheckmodel', [APIGetDataController::class, 'DataCheckModel']);
+Route::get('/vwork/{customer}', [APIGetDataController::class, 'DataVWorkByCustomer']);
+Route::get('/vcheckmodel/{won}', [APIGetDataController::class, 'DataCheckModelByWon']);
 
 /**
  * TODO: Add API POST Methods
