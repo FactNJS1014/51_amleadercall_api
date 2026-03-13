@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use OpenApi\Attributes as OA;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class APIInsertDataController extends Controller
 {
@@ -240,6 +241,114 @@ class APIInsertDataController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Insert Action successfully'
+
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to process data',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * todo : 2026-03-13
+     
+     */
+    #[OA\Post(
+        path: "/confirm/insert",
+        tags: ["Confirm"],
+        summary: "Insert confirm record",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Success"
+            )
+        ]
+    )]
+    public function DataConfirmInsert(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $payload = $request->all();
+
+            $start_time = $payload['start_time'];
+            $end_time = $payload['end_time'];
+
+            // แปลงเป็น Carbon
+            $start = Carbon::createFromFormat('H:i', $start_time);
+            $end = Carbon::createFromFormat('H:i', $end_time);
+
+            // ถ้า end < start แปลว่าข้ามวัน
+            if ($end->lt($start)) {
+                $end->addDay();
+            }
+
+            // คำนวณเวลาต่าง
+            $diffMinutes = $start->diffInMinutes($end);
+
+            $hours = floor($diffMinutes / 60);
+            $minutes = $diffMinutes % 60;
+
+            $total_time = sprintf('%02d:%02d', $hours, $minutes);
+
+
+
+            /**
+             * TODO: Auto Generate Key
+             */
+            $YM = date('Ym');
+            $AMLDCONF_HREC_ID = "";
+
+            $findPreviousMaxID = DB::table('AM_LDR_CONFIRMHREC_TBL')
+                ->select('AMLDRCONF_HREC_ID')
+                ->orderBy('AMLDRCONF_HREC_ID', 'DESC')
+                ->first();
+
+            if (empty($findPreviousMaxID)) {
+                $AMLDCONF_HREC_ID = 'AMLDCONF-' . $YM . '-000001';
+            } else {
+                $AMLDCONF_HREC_ID = AutogenerateKey('AMLDCONF', $findPreviousMaxID->AMLDRCONF_HREC_ID);
+            }
+
+            $insert_confirm = [
+                'AMLDRCONF_HREC_ID' => $AMLDCONF_HREC_ID,
+                'AMLDRINF_HREC_ID' => $payload['inf_id'],
+                'AMLDRACT_HREC_ID' => $payload['act_id'],
+                'AMLDRCONF_HREC_EMPNO' => $payload['employee_confirm'],
+                'AMLDRCONF_HREC_RESULT' => $payload['result'],
+                'AMLDRCONF_HREC_ENDTIME' => $payload['end_time'],
+                'AMLDRCONF_HREC_TOTALTIME' => $total_time,
+                'AMLDRCONF_HREC_STD' => 1,
+                'AMLDRCONF_HREC_LSTDT' => date('Y-m-d H:i:s')
+
+            ];
+
+            DB::table('AM_LDR_CONFIRMHREC_TBL')
+                ->insert($insert_confirm);
+
+            DB::table('AM_LDR_INFOHREC_TBL')
+                ->where('AMLDRINF_HREC_ID', $payload['inf_id'])
+                ->update([
+                    'AMLDRCONF_HREC_ID' => $AMLDCONF_HREC_ID,
+                ]);
+
+            DB::table('AM_LDR_ACTIONHREC_TBL')
+                ->where('AMLDRACT_HREC_ID', $payload['act_id'])
+                ->update([
+                    'AMLDRCONF_HREC_ID' => $AMLDCONF_HREC_ID,
+                ]);
+
+
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Insert Confirm successfully',
+                'data' => $insert_confirm
 
             ]);
         } catch (\Exception $e) {

@@ -180,7 +180,70 @@ class APIGetDataController extends Controller
     )]
     public function DataConfirmRecord()
     {
-        $data = DB::table('AM_LDR_CONFIRMHREC_TBL')
+        try {
+            DB::beginTransaction();
+
+            $data = DB::table('AM_LDR_ACTIONHREC_TBL as a')
+                ->join('AM_LDR_INFOHREC_TBL as i', 'a.AMLDRINF_HREC_ID', '=', 'i.AMLDRINF_HREC_ID')
+                ->where('a.AMLDRACT_HREC_STD', 1)
+                ->where('i.AMLDRINF_HREC_STD', 3)
+                ->where('a.AMLDRCONF_HREC_ID', null)
+                ->get();
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to process data',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    #[OA\Get(
+        path: "/info/record/reject",
+        tags: ["Info"],
+        summary: "Get info record reject",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Success"
+            )
+        ]
+    )]
+    public function DataInfoRecordReject()
+    {
+        $data = DB::table('AM_LDR_INFOHREC_TBL')
+            ->where('AMLDRINF_HREC_STD', 4)
+            ->get();
+
+        return response()->json($data);
+    }
+
+    #[OA\Get(
+        path: "/all-record",
+        tags: ["All"],
+        summary: "Get all record",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Success"
+            )
+        ]
+    )]
+    public function DataAllRecord()
+    {
+        $data = DB::table('AM_LDR_CONFIRMHREC_TBL as c')
+            ->join('AM_LDR_INFOHREC_TBL as i', 'c.AMLDRINF_HREC_ID', '=', 'i.AMLDRINF_HREC_ID')
+            ->join('AM_LDR_ACTIONHREC_TBL as a', 'c.AMLDRACT_HREC_ID', '=', 'a.AMLDRACT_HREC_ID')
+            ->where('c.AMLDRCONF_HREC_STD', 1)
+            ->where('i.AMLDRINF_HREC_STD', 3)
+            ->where('a.AMLDRACT_HREC_STD', 1)
             ->get();
 
         return response()->json($data);

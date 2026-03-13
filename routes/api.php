@@ -19,6 +19,7 @@ Route::get('/vwork', [APIGetDataController::class, 'DataVWork']);
 
 Route::get('/info/record/check', [APIGetDataController::class, 'CheckDataRecord']);
 Route::get('/info/record', [APIGetDataController::class, 'DataInfoRecord']);
+Route::get('/info/record/reject', [APIGetDataController::class, 'DataInfoRecordReject']);
 
 Route::get('/action/record/check', [APIGetDataController::class, 'CheckActionRecord']);
 Route::get('/info-action/record', [APIGetDataController::class, 'DataInfoAndActionRecord']);
@@ -30,6 +31,7 @@ Route::get('/vcus', [APIGetDataController::class, 'DataCustomer']);
 Route::get('/vcheckmodel', [APIGetDataController::class, 'DataCheckModel']);
 Route::get('/vwork/{customer}', [APIGetDataController::class, 'DataVWorkByCustomer']);
 Route::get('/vcheckmodel/{won}', [APIGetDataController::class, 'DataCheckModelByWon']);
+Route::get('/all-record', [APIGetDataController::class, 'DataAllRecord']);
 
 /**
  * TODO: Add API POST Methods
@@ -52,3 +54,7 @@ Route::delete('/info/delete/{id}', [APIUpdateandDeleteController::class, 'Delete
 Route::put('/info/update', [APIUpdateandDeleteController::class, 'UpdateInfoRecord']);
 
 Route::put('/action/update', [APIUpdateandDeleteController::class, 'UpdateActionRecord']);
+Route::put('/confirm/send-back-to-edit/{id}', [APIUpdateandDeleteController::class, 'SendBackToEditConfirm']);
+
+Route::put('/update/reject-info/{id}', [APIUpdateandDeleteController::class, 'UpdateRejectInfoRecord']);
+Route::put('/update/reject-action/{id}', [APIUpdateandDeleteController::class, 'UpdateRejectActionRecord']);

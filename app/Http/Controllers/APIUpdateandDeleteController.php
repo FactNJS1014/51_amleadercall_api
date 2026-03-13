@@ -315,4 +315,146 @@ class APIUpdateandDeleteController extends Controller
             ], 500);
         }
     }
+
+    #[OA\Put(
+        path: "/confirm/send-back-to-edit/{id}",
+        tags: ["Confirm"],
+        summary: "Send back to edit confirm record",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Success"
+            )
+        ]
+    )]
+
+    public function SendBackToEditConfirm($id, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $payload = $request->all();
+
+            if ($payload['form_name'] == 'information') {
+                $update_info_std = [
+                    'AMLDRINF_HREC_STD' => 4
+                ];
+
+                DB::table('AM_LDR_INFOHREC_TBL')
+                    ->where('AMLDRINF_HREC_ID', $id)
+                    ->update($update_info_std);
+
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Send back to edit confirm record successfully',
+                ]);
+            } elseif ($payload['form_name'] == 'action') {
+                $update_action_std = [
+                    'AMLDRACT_HREC_STD' => 2
+                ];
+
+                DB::table('AM_LDR_ACTIONHREC_TBL')
+                    ->where('AMLDRACT_HREC_ID', $id)
+                    ->update($update_action_std);
+
+                DB::commit();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Send back to edit confirm record successfully',
+                ]);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to send back to edit confirm record',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    #[OA\Put(
+        path: "/update/reject/{id}",
+        tags: ["Confirm"],
+        summary: "Update reject record",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Success"
+            )
+        ]
+    )]
+
+    public function UpdateRejectInfoRecord($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $update_reject_std = [
+                'AMLDRINF_HREC_STD' => 3
+            ];
+
+            DB::table('AM_LDR_INFOHREC_TBL')
+                ->where('AMLDRINF_HREC_ID', $id)
+                ->update($update_reject_std);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update reject record successfully',
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to update reject record',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    #[OA\Put(
+        path: "/update/reject-action/{id}",
+        tags: ["Confirm"],
+        summary: "Update reject record",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Success"
+            )
+        ]
+    )]
+
+    public function UpdateRejectActionRecord($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $update_reject_std = [
+                'AMLDRACT_HREC_STD' => 1
+            ];
+
+            DB::table('AM_LDR_ACTIONHREC_TBL')
+                ->where('AMLDRACT_HREC_ID', $id)
+                ->update($update_reject_std);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Update reject record successfully',
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to update reject record',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

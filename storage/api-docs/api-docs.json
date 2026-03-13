@@ -127,6 +127,34 @@
                 }
             }
         },
+        "/info/record/reject": {
+            "get": {
+                "tags": [
+                    "Info"
+                ],
+                "summary": "Get info record reject",
+                "operationId": "69c695cd350bbae374c56440c253a7a9",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/all-record": {
+            "get": {
+                "tags": [
+                    "All"
+                ],
+                "summary": "Get all record",
+                "operationId": "bcc0addb2251905561e28921d9367121",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/info/insert": {
             "post": {
                 "tags": [
@@ -150,6 +178,21 @@
                 "summary": "Insert action record",
                 "description": "todo : 2026-03-09\n* FN: สำหรับบันทึกข้อมูลลงในตาราง AM_LDR_ACTIONHREC_TBL",
                 "operationId": "0f6b012791086188b41f1078def9d2f1",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/confirm/insert": {
+            "post": {
+                "tags": [
+                    "Confirm"
+                ],
+                "summary": "Insert confirm record",
+                "description": "todo : 2026-03-13",
+                "operationId": "258e42089b478cb63ce4eb4a952682d4",
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -226,6 +269,48 @@
                     }
                 }
             }
+        },
+        "/confirm/send-back-to-edit/{id}": {
+            "put": {
+                "tags": [
+                    "Confirm"
+                ],
+                "summary": "Send back to edit confirm record",
+                "operationId": "66dab5aa3258f151758d519a4e02c308",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/update/reject/{id}": {
+            "put": {
+                "tags": [
+                    "Confirm"
+                ],
+                "summary": "Update reject record",
+                "operationId": "7a24fe5f35f129ff074e6fa6d7f0c393",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/update/reject-action/{id}": {
+            "put": {
+                "tags": [
+                    "Confirm"
+                ],
+                "summary": "Update reject record",
+                "operationId": "a601fcb82a14804fe053efa02ea0610f",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -244,6 +329,10 @@
         {
             "name": "Confirm",
             "description": "Confirm"
+        },
+        {
+            "name": "All",
+            "description": "All"
         }
     ]
 }
