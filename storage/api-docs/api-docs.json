@@ -155,6 +155,20 @@
                 }
             }
         },
+        "/action/record/reject": {
+            "get": {
+                "tags": [
+                    "Action"
+                ],
+                "summary": "Get action record reject",
+                "operationId": "fd6e35d86566662057e4ab32a951208a",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/info/insert": {
             "post": {
                 "tags": [

@@ -23,6 +23,7 @@ Route::get('/info/record/reject', [APIGetDataController::class, 'DataInfoRecordR
 
 Route::get('/action/record/check', [APIGetDataController::class, 'CheckActionRecord']);
 Route::get('/info-action/record', [APIGetDataController::class, 'DataInfoAndActionRecord']);
+Route::get('/action/record/reject', [APIGetDataController::class, 'DataActionRecordReject']);
 
 Route::get('/confirm/record', [APIGetDataController::class, 'DataConfirmRecord']);
 

@@ -248,4 +248,24 @@ class APIGetDataController extends Controller
 
         return response()->json($data);
     }
+
+    #[OA\Get(
+        path: "/action/record/reject",
+        tags: ["Action"],
+        summary: "Get action record reject",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Success"
+            )
+        ]
+    )]
+    public function DataActionRecordReject()
+    {
+        $data = DB::table('AM_LDR_ACTIONHREC_TBL')
+            ->where('AMLDRACT_HREC_STD', 2)
+            ->get();
+
+        return response()->json($data);
+    }
 }
