@@ -352,7 +352,7 @@ class APIUpdateandDeleteController extends Controller
                 ]);
             } elseif ($payload['form_name'] == 'action') {
                 $update_action_std = [
-                    'AMLDRINF_HREC_STD' => 2
+                    'AMLDRACT_HREC_STD' => 2
                 ];
 
                 DB::table('AM_LDR_ACTIONHREC_TBL')
