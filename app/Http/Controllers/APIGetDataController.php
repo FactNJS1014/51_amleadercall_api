@@ -244,6 +244,9 @@ class APIGetDataController extends Controller
             ->where('c.AMLDRCONF_HREC_STD', 1)
             ->where('i.AMLDRINF_HREC_STD', 3)
             ->where('a.AMLDRACT_HREC_STD', 1)
+            ->where('i.AMLDRINF_HREC_ID', '!=', null)
+            ->where('a.AMLDRACT_HREC_ID', '!=', null)
+            ->orderBy('i.AMLDRINF_HREC_ID', 'desc')
             ->get();
 
         return response()->json($data);
