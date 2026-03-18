@@ -271,4 +271,24 @@ class APIGetDataController extends Controller
 
         return response()->json($data);
     }
+
+    #[OA\Get(
+        path: "/users",
+        tags: ["Users"],
+        summary: "Get users",
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: "Success"
+            )
+        ]
+    )]
+    public function GetUsers()
+    {
+        $data = DB::table('VEMPLOYEE_TBL')
+            ->select('VEMPLOYEE_ID', 'VEMPLOYEE_ENFNAME', 'VEMPLOYEE_ENLNAME')
+            ->get();
+
+        return response()->json($data);
+    }
 }

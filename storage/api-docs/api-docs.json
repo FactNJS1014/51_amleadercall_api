@@ -169,6 +169,20 @@
                 }
             }
         },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get users",
+                "operationId": "5cd210d9259350bfaf5a4081e9a73f8b",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/info/insert": {
             "post": {
                 "tags": [
@@ -347,6 +361,10 @@
         {
             "name": "All",
             "description": "All"
+        },
+        {
+            "name": "Users",
+            "description": "Users"
         }
     ]
 }

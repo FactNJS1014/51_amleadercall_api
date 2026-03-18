@@ -34,6 +34,7 @@ Route::get('/vwork/{customer}', [APIGetDataController::class, 'DataVWorkByCustom
 Route::get('/vcheckmodel/{won}', [APIGetDataController::class, 'DataCheckModelByWon']);
 Route::get('/all-record', [APIGetDataController::class, 'DataAllRecord']);
 
+Route::get('/users', [APIGetDataController::class, 'GetUsers']);
 /**
  * TODO: Add API POST Methods
  */
