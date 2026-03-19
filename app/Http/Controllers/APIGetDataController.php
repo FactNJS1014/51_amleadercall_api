@@ -249,7 +249,24 @@ class APIGetDataController extends Controller
             ->orderBy('i.AMLDRINF_HREC_ID', 'desc')
             ->get();
 
-        return response()->json($data);
+        $no_action = DB::table('AM_LDR_INFOHREC_TBL as i')
+            ->leftJoin('AM_LDR_ACTIONHREC_TBL as a', 'i.AMLDRINF_HREC_ID', '=', 'a.AMLDRINF_HREC_ID')
+            ->where('a.AMLDRACT_HREC_ID', null)
+            ->orderBy('i.AMLDRINF_HREC_ID', 'desc')
+            ->get();
+
+        $no_confirm =  DB::table('AM_LDR_INFOHREC_TBL as i')
+            ->leftJoin('AM_LDR_ACTIONHREC_TBL as a', 'i.AMLDRINF_HREC_ID', '=', 'a.AMLDRINF_HREC_ID')
+            ->leftJoin('AM_LDR_CONFIRMHREC_TBL as c', 'i.AMLDRINF_HREC_ID', '=', 'c.AMLDRINF_HREC_ID')
+            ->where('c.AMLDRCONF_HREC_ID', null)
+            ->orderBy('i.AMLDRINF_HREC_ID', 'desc')
+            ->get();
+
+        return response()->json([
+            'complete' => $data,
+            'no_action' => $no_action,
+            'no_confirm' => $no_confirm
+        ]);
     }
 
     #[OA\Get(
