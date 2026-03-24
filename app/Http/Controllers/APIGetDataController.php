@@ -252,6 +252,7 @@ class APIGetDataController extends Controller
         $no_action = DB::table('AM_LDR_INFOHREC_TBL as i')
             ->leftJoin('AM_LDR_ACTIONHREC_TBL as a', 'i.AMLDRINF_HREC_ID', '=', 'a.AMLDRINF_HREC_ID')
             ->where('a.AMLDRACT_HREC_ID', null)
+            ->where('i.AMLDRINF_HREC_STD', 1)
             ->orderBy('i.AMLDRINF_HREC_ID', 'desc')
             ->get();
 
@@ -259,6 +260,8 @@ class APIGetDataController extends Controller
             ->join('AM_LDR_ACTIONHREC_TBL as a', 'i.AMLDRINF_HREC_ID', '=', 'a.AMLDRINF_HREC_ID')
             ->leftJoin('AM_LDR_CONFIRMHREC_TBL as c', 'i.AMLDRINF_HREC_ID', '=', 'c.AMLDRINF_HREC_ID')
             ->where('c.AMLDRCONF_HREC_ID', null)
+            ->where('i.AMLDRINF_HREC_STD', 3)
+            ->where('a.AMLDRACT_HREC_STD', 1)
             ->orderBy('i.AMLDRINF_HREC_ID', 'desc')
             ->get();
 
